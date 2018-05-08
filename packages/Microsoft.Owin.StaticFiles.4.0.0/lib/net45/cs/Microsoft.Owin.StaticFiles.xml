@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Microsoft.Owin.StaticFiles</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Owin.SendFileResponseExtensions">
+      <summary>Poskytuje přípony IOwinResponse a zpřístupňuje příponu SendFile.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.SendFileResponseExtensions.SendFileAsync(Microsoft.Owin.IOwinResponse,System.String)">
+      <summary>Odešle daný soubor s použitím přípony SendFile.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.SendFileResponseExtensions.SendFileAsync(Microsoft.Owin.IOwinResponse,System.String,System.Int64,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+      <summary>Odešle daný soubor s použitím přípony SendFile.</summary>
+      <param name="fileName">Úplná nebo relativní cesta k souboru.</param>
+      <param name="offset">Posun v souboru.</param>
+      <param name="count">Počet typů, které se mají odeslat, nebo hodnota null, pokud se má odeslat zbytek souboru.</param>
+    </member>
+    <member name="M:Microsoft.Owin.SendFileResponseExtensions.SupportsSendFile(Microsoft.Owin.IOwinResponse)">
+      <summary>Zkontroluje, jestli je dostupná podpora přípony SendFile.</summary>
+      <returns>Hodnota true, pokud je v prostředí definovaná položka sendfile.SendAsync.</returns>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.DefaultFilesMiddleware">
+      <summary>Prozkoumá cestu k adresáři a určí, jestli se v něm nachází výchozí soubor.Pokud ano, k cestě se připojí název souboru a provádění pokračuje.Upozorňujeme, že nezpracujeme soubor jenom proto, že může vyžadovat interpretaci.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DefaultFilesMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},Microsoft.Owin.StaticFiles.DefaultFilesOptions)">
+      <summary>Vytvoří novou instanci položky DefaultFilesMiddleware.</summary>
+      <param name="next">Další middleware v kanálu.</param>
+      <param name="options">Možnosti konfigurace tohoto middlewaru.</param>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DefaultFilesMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>Prozkoumá požadavek, aby se zjistilo, jestli odpovídá nakonfigurovanému adresáři a jestli se v tomto adresáři nacházejí soubory s nakonfigurovanými výchozími názvy.Pokud ano, připojí k cestě požadavku odpovídající název souboru, který se použije při pozdějším zpracování jiným middlewarem.</summary>
+      <param name="environment">Prostředí požadavku.</param>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.DefaultFilesOptions">
+      <summary>Možnosti pro výběr výchozích názvů souborů.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DefaultFilesOptions.#ctor">
+      <summary>Konfigurace položky DefaultFilesMiddleware.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DefaultFilesOptions.#ctor(Microsoft.Owin.StaticFiles.Infrastructure.SharedOptions)">
+      <summary>Konfigurace položky DefaultFilesMiddleware.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.DefaultFilesOptions.DefaultFileNames">
+      <summary>Seřazený seznam názvů souborů, které se mají vybrat ve výchozím nastavení.Délka a řazení seznamu mohou mít vliv na výkon.</summary>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.DirectoryBrowserMiddleware">
+      <summary>Povolí procházení adresářů.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DirectoryBrowserMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},Microsoft.Owin.StaticFiles.DirectoryBrowserOptions)">
+      <summary>Vytvoří novou instanci položky SendFileMiddleware.</summary>
+      <param name="next">Další middleware v kanálu.</param>
+      <param name="options">Konfigurace tohoto middlewaru.</param>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DirectoryBrowserMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>Prozkoumá požadavek, aby se zjistilo, jestli odpovídá nakonfigurovanému adresáři.Pokud ano, vrátí se zobrazení obsahu daného adresáře.</summary>
+      <param name="environment">Prostředí požadavku.</param>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.DirectoryBrowserOptions">
+      <summary>Možnosti procházení adresáře</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DirectoryBrowserOptions.#ctor">
+      <summary>Povolené procházení adresáře v aktuálním fyzickém adresáři pro všechny cesty k požadavku</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DirectoryBrowserOptions.#ctor(Microsoft.Owin.StaticFiles.Infrastructure.SharedOptions)">
+      <summary>Povolené procházení adresáře v aktuálním fyzickém adresáři pro všechny cesty k požadavku</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.DirectoryBrowserOptions.Formatter">
+      <summary>Komponenta, která generuje zobrazení.</summary>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.FileServerOptions">
+      <summary>Možnosti pro všechny komponenty middlewaru se statickými soubory</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.FileServerOptions.#ctor">
+      <summary>Vytvoří souhrnnou třídu možností pro všechny komponenty middlewaru se statickými soubory.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.FileServerOptions.DefaultFilesOptions">
+      <summary>Možnosti pro konfiguraci middlewaru DefaultFilesMiddleware.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.FileServerOptions.DirectoryBrowserOptions">
+      <summary>Možnosti pro konfiguraci middlewaru DirectoryBrowserMiddleware.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.FileServerOptions.EnableDefaultFiles">
+      <summary>Výchozí soubory jsou ve výchozím nastavení povolené.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.FileServerOptions.EnableDirectoryBrowsing">
+      <summary>Procházení adresáře je ve výchozím nastavení zakázané.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.FileServerOptions.StaticFileOptions">
+      <summary>Možnosti pro konfiguraci middlewaru StaticFileMiddleware.</summary>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.SendFileExtensions">
+      <summary>Rozšiřující metody pro SendFileMiddleware</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.SendFileExtensions.UseSendFileFallback(Owin.IAppBuilder)">
+      <summary>Poskytne funkci SendFileFunc, pokud to neudělá jiná komponenta.</summary>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.SendFileMiddleware">
+      <summary>Tento middleware poskytuje účinný nouzový mechanismus, který umožňuje odeslat statické soubory, pokud server nenabízí nativní podporu této funkce.Volající zodpovídá za to, aby byly předem nastavené všechny hlavičky.Volající zodpovídá za správné zosobnění, které poskytne přístup k souboru.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.SendFileMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task})">
+      <summary>Vytvoří novou instanci položky SendFileMiddleware.</summary>
+      <param name="next">Další middleware v kanálu.</param>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.SendFileMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>Přidá do prostředí požadavku funkci sendfile.SendAsync, pokud v něm ještě neexistuje.</summary>
+      <param name="environment">Slovník prostředí OWIN, který obsahuje informace o stavu požadavku a odpovědi a o stavu příslušného serveru.</param>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.StaticFileMiddleware">
+      <summary>Pro danou cestu k požadavku povolí zpracování statických souborů.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.StaticFileMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},Microsoft.Owin.StaticFiles.StaticFileOptions)">
+      <summary>Vytvoří novou instanci položky StaticFileMiddleware.</summary>
+      <param name="next">Další middleware v kanálu.</param>
+      <param name="options">Možnosti konfigurace.</param>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.StaticFileMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>Zpracuje požadavek, aby se zjistilo, jestli odpovídá známému souboru, a pokud ano, zpracuje jej.</summary>
+      <param name="environment">Slovník prostředí OWIN, který obsahuje informace o stavu požadavku a odpovědi a o stavu příslušného serveru.</param>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.StaticFileOptions">
+      <summary>Možnosti obsluhy statických souborů</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.StaticFileOptions.#ctor">
+      <summary>Výchozí hodnota jsou všechny cesty k požadavkům ve stávajícím fyzickém adresáři</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.StaticFileOptions.#ctor(Microsoft.Owin.StaticFiles.Infrastructure.SharedOptions)">
+      <summary>Výchozí hodnota jsou všechny cesty k požadavkům ve stávajícím fyzickém adresáři</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.StaticFileOptions.ContentTypeProvider">
+      <summary>Používá se k mapování souborů na typy obsahu.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.StaticFileOptions.DefaultContentType">
+      <summary>Výchozí typ obsahu požadavku, pokud objektu ContentTypeProvider nepodaří typ zjistit.Ve výchozím nastavení se nepřiděluje žádný formát, takže ho klient musí určit sám.http://www.w3.org/Protocols/rfc2616/rfc2616-sec7.html#sec7</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.StaticFileOptions.OnPrepareResponse">
+      <summary>Volá se po nastavení stavového kódu a hlaviček, ale před zápisem textu.Dá se použít k přidání nebo změně hlaviček odpovědi.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.StaticFileOptions.ServeUnknownFileTypes">
+      <summary>Mají se obsluhovat i soubory, které nemají známý typ obsahu?Výchozí hodnota: false.</summary>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.StaticFileResponseContext">
+      <summary>Obsahuje informace o požadavku a souboru, který se zpracuje v odpovědi.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.StaticFileResponseContext.#ctor"></member>
+    <member name="P:Microsoft.Owin.StaticFiles.StaticFileResponseContext.File">
+      <summary>Soubor ke zpracování.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.StaticFileResponseContext.OwinContext">
+      <summary>Informace o požadavku a odpovědi.</summary>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.ContentTypes.FileExtensionContentTypeProvider">
+      <summary>Zajišťuje mapování mezi příponami souborů a typy MIME.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.ContentTypes.FileExtensionContentTypeProvider.#ctor">
+      <summary>Vytvoří nového zprostředkovatele se sadou výchozích mapování.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.ContentTypes.FileExtensionContentTypeProvider.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})">
+      <summary>S použitím zadaného mapování vytvoří vyhledávací modul.Doporučuje se, aby instance IDictionary používala nastavení StringComparer.OrdinalIgnoreCase.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.ContentTypes.FileExtensionContentTypeProvider.Mappings">
+      <summary>Tabulka křížových odkazů, která obsahuje přípony souborů a typy obsahu.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.ContentTypes.FileExtensionContentTypeProvider.TryGetContentType(System.String,System.String@)">
+      <summary>Na základě cesty k souboru určí typ MIME.</summary>
+      <returns>Hodnota true, pokud se typ MIME podařilo zjistit</returns>
+      <param name="subpath">Cesta k souboru</param>
+      <param name="contentType">Výsledný typ MIME</param>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.ContentTypes.IContentTypeProvider">
+      <summary>Používá se k vyhledání typů MIME na základě cesty k souboru.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.ContentTypes.IContentTypeProvider.TryGetContentType(System.String,System.String@)">
+      <summary>Na základě cesty k souboru určí typ MIME.</summary>
+      <returns>Hodnota true, pokud se typ MIME podařilo zjistit</returns>
+      <param name="subpath">Cesta k souboru</param>
+      <param name="contentType">Výsledný typ MIME</param>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.DirectoryFormatters.HtmlDirectoryFormatter">
+      <summary>Vygeneruje zobrazení HTML pro adresář.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DirectoryFormatters.HtmlDirectoryFormatter.#ctor"></member>
+    <member name="M:Microsoft.Owin.StaticFiles.DirectoryFormatters.HtmlDirectoryFormatter.GenerateContentAsync(Microsoft.Owin.IOwinContext,System.Collections.Generic.IEnumerable{Microsoft.Owin.FileSystems.IFileInfo})">
+      <summary>Vygeneruje zobrazení HTML pro adresář.</summary>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.DirectoryFormatters.IDirectoryFormatter">
+      <summary>Vygeneruje zobrazení pro adresář.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.DirectoryFormatters.IDirectoryFormatter.GenerateContentAsync(Microsoft.Owin.IOwinContext,System.Collections.Generic.IEnumerable{Microsoft.Owin.FileSystems.IFileInfo})">
+      <summary>Vygeneruje zobrazení pro adresář.Implementátory by měly řádně zpracovávat požadavky HEAD.Implementátory by měly nastavit všechny potřebné hlavičky odpovědi (např.Content-Type, Content-Length atd.).</summary>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.Infrastructure.SharedOptions">
+      <summary>Možnosti společné několika komponentám middlewaru</summary>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.Infrastructure.SharedOptions.#ctor">
+      <summary>Výchozí hodnota jsou všechny cesty k požadavkům a aktuální fyzický adresář.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.Infrastructure.SharedOptions.FileSystem">
+      <summary>Systém souborů, který se používá k hledání prostředků</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.Infrastructure.SharedOptions.RequestPath">
+      <summary>Cesta k požadavku, která se mapuje na statické prostředky</summary>
+    </member>
+    <member name="T:Microsoft.Owin.StaticFiles.Infrastructure.SharedOptionsBase`1">
+      <summary>Možnosti společné několika komponentám middlewaru</summary>
+      <typeparam name="T">Typ podtřídy</typeparam>
+    </member>
+    <member name="M:Microsoft.Owin.StaticFiles.Infrastructure.SharedOptionsBase`1.#ctor(Microsoft.Owin.StaticFiles.Infrastructure.SharedOptions)">
+      <summary>Vytvoří novou instanci položky SharedOptionsBase.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.Infrastructure.SharedOptionsBase`1.FileSystem">
+      <summary>Systém souborů, který se používá k hledání prostředků</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.Infrastructure.SharedOptionsBase`1.RequestPath">
+      <summary>Relativní cesta k požadavku, která se mapuje na statické prostředky.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.StaticFiles.Infrastructure.SharedOptionsBase`1.SharedOptions">
+      <summary>Možnosti společné několika komponentám middlewaru</summary>
+    </member>
+    <member name="T:Owin.DefaultFilesExtensions">
+      <summary>Rozšiřující metody pro položku DefaultFilesMiddleware</summary>
+    </member>
+    <member name="M:Owin.DefaultFilesExtensions.UseDefaultFiles(Owin.IAppBuilder)">
+      <summary>Povolí výchozí mapování souboru v aktuální cestě z aktuálního adresáře.</summary>
+    </member>
+    <member name="M:Owin.DefaultFilesExtensions.UseDefaultFiles(Owin.IAppBuilder,Microsoft.Owin.StaticFiles.DefaultFilesOptions)">
+      <summary>Povolí výchozí mapování souboru se zadanými možnostmi.</summary>
+    </member>
+    <member name="M:Owin.DefaultFilesExtensions.UseDefaultFiles(Owin.IAppBuilder,System.String)">
+      <summary>Povolí výchozí mapování souboru pro zadanou cestu požadavku z adresáře se stejným názvem.</summary>
+      <param name="requestPath">Relativní cesta a fyzická cesta k požadavku.</param>
+    </member>
+    <member name="T:Owin.DirectoryBrowserExtensions">
+      <summary>Rozšiřující metody pro DirectoryBrowserMiddleware</summary>
+    </member>
+    <member name="M:Owin.DirectoryBrowserExtensions.UseDirectoryBrowser(Owin.IAppBuilder)">
+      <summary>Povolí procházení adresáře v aktuální cestě pro aktuální adresář.</summary>
+    </member>
+    <member name="M:Owin.DirectoryBrowserExtensions.UseDirectoryBrowser(Owin.IAppBuilder,Microsoft.Owin.StaticFiles.DirectoryBrowserOptions)">
+      <summary>Povolí procházení adresáře se zadanými možnostmi.</summary>
+    </member>
+    <member name="M:Owin.DirectoryBrowserExtensions.UseDirectoryBrowser(Owin.IAppBuilder,System.String)">
+      <summary>Povolí procházení adresáře pro zadanou cestu požadavku z adresáře se stejným názvem.</summary>
+      <param name="requestPath">Relativní cesta a fyzická cesta k požadavku.</param>
+    </member>
+    <member name="T:Owin.FileServerExtensions">
+      <summary>Rozšiřující metody, které kombinují všechny komponenty middlewaru se statickými soubory: výchozí soubory, procházení adresáře, odeslání souboru a statické soubory.</summary>
+    </member>
+    <member name="M:Owin.FileServerExtensions.UseFileServer(Owin.IAppBuilder)">
+      <summary>Povolí pro aktuální cestu požadavku v aktuálním adresáři veškerý middleware se statickými soubory (s výjimkou procházení adresáře).</summary>
+    </member>
+    <member name="M:Owin.FileServerExtensions.UseFileServer(Owin.IAppBuilder,Microsoft.Owin.StaticFiles.FileServerOptions)">
+      <summary>Povolí veškerý middleware se statickými soubory s použitím daných možností.</summary>
+    </member>
+    <member name="M:Owin.FileServerExtensions.UseFileServer(Owin.IAppBuilder,System.Boolean)">
+      <summary>Povolí pro aktuální cestu požadavku v aktuálním adresáři veškerý middleware se statickými soubory.</summary>
+      <param name="enableDirectoryBrowsing">Má se povolit procházení adresáře?</param>
+    </member>
+    <member name="M:Owin.FileServerExtensions.UseFileServer(Owin.IAppBuilder,System.String)">
+      <summary>Povolí pro zadanou cestu požadavku z adresáře se stejným názvem veškerý middleware se statickými soubory (s výjimkou procházení adresáře).</summary>
+      <param name="requestPath">Relativní cesta a fyzická cesta k požadavku.</param>
+    </member>
+    <member name="T:Owin.StaticFileExtensions">
+      <summary>Rozšiřující metody pro middleware StaticFileMiddleware</summary>
+    </member>
+    <member name="M:Owin.StaticFileExtensions.UseStaticFiles(Owin.IAppBuilder)">
+      <summary>Povolí obsluhu statických souborů v aktuální cestě požadavku z aktuálního adresáře.</summary>
+    </member>
+    <member name="M:Owin.StaticFileExtensions.UseStaticFiles(Owin.IAppBuilder,Microsoft.Owin.StaticFiles.StaticFileOptions)">
+      <summary>Povolí obsluhu statických souborů se zadanými možnostmi.</summary>
+    </member>
+    <member name="M:Owin.StaticFileExtensions.UseStaticFiles(Owin.IAppBuilder,System.String)">
+      <summary>Povolí obsluhu statických souborů pro zadanou cestu požadavku z adresáře se stejným názvem.</summary>
+      <param name="requestPath">Relativní cesta a fyzická cesta k požadavku.</param>
+    </member>
+  </members>
+</doc>
